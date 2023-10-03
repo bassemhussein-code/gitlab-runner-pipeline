@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: eureka
-        image: 192.168.10.227:8085/eureka-project:$CI_COMMIT_SHORT_SHA
+        image: nexus_ip:8085/eureka-project:$CI_COMMIT_SHORT_SHA
         #imagePullPolicy: IfNotPresent  # Add this line to specify the imagePullPolicy
         ports:
         - containerPort: 8761
