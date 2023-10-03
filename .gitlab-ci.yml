@@ -12,7 +12,7 @@ test:
   tags:
     - ci 
   script:
-    - mvn --batch-mode verify sonar:sonar -Dsonar.host.url=http://192.168.10.227:8181 -Dsonar.token=sqp_39f70b9eb6aca9aeece75bdd52db4affa9d5762b  --offline
+    - mvn --batch-mode verify sonar:sonar -Dsonar.host.url=http://sonar_server:8181 -Dsonar.token=sqp_39f70b9eb6aca9aeece75bdd52db4affa9d5762b  --offline
 
 build:
   stage: build
@@ -36,16 +36,16 @@ deploy:
     - ci
   script:
     - echo "admin" | docker login -u "admin"
-      --password-stdin 192.168.10.227:8085
-    - docker tag eureka-project:latest 192.168.10.227:8085/eureka-project:$CI_COMMIT_SHORT_SHA
-    - docker push 192.168.10.227:8085/eureka-project:$CI_COMMIT_SHORT_SHA
+      --password-stdin  nexus_ip:8085
+    - docker tag eureka-project:latest nexus_ip:8085/eureka-project:$CI_COMMIT_SHORT_SHA
+    - docker push nexus_ip:8085/eureka-project:$CI_COMMIT_SHORT_SHA
 
 clean up:
   stage : clean_up
   tags: 
     - ci 
   script:
-    - images=$(docker image ls | grep -v "192.168.10.227:8080/eureka-project:latest" | grep "eureka"  | awk '{print $3}')
+    - images=$(docker image ls | grep -v "nexus_ip:8080/eureka-project:latest" | grep "eureka"  | awk '{print $3}')
     - docker image rm $images -f 
 
 operate:
@@ -59,9 +59,9 @@ operate:
     #- git remote remove org
     - cd first_project_argo/
     - git add . 
-    - git config user.email "bassem.selim@giza.systems.com"
-    - git config user.name "root"
-    - git config user.password 'mpd-mt9qdBA!baQ'
+    - git config user.email "************"
+    - git config user.name "*************"
+    - git config user.password '*********'
     - git remote add org  git@gitlab.example.com:root/first_project_argo.git
     - git commit -m "sync gitlab repo with argocd to deploy to kubernetes commit hash:${CI_COMMIT_SHORT_SHA}"
     - git push -u org 
