@@ -9,7 +9,7 @@ Code Versioning: The developer pushes the code to a GitLab hosting service, whic
 
 Continuous Integration (CI) Pipeline: GitLab Runner is configured to start the CI pipeline upon code push. The CI pipeline is responsible for performing code analysis and building the microservice.
 
-a. Code Analysis: The CI pipeline uses SonarQube, which is backed by a PostgreSQL database, to perform code analysis on the source code. SonarQube detects code quality issues, bugs, and vulnerabilities.
+a. Code Analysis: The CI pipeline uses SonarQube, which is based on a PostgreSQL database, to perform code analysis on the source code. SonarQube detects code quality issues, bugs, and vulnerabilities.
 
 b. Building the Microservice: Maven is used to build the microservice. In an offline scenario, Maven is configured to point to the local repository for artifacts instead of the remote repository. This ensures dependencies are resolved from the local repository.
 
